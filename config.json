@@ -1,0 +1,71 @@
+{
+    "db": {
+        "type": "mongodb",
+        "host": "127.0.0.1",
+        "port": 27017,
+        "db": "spider",
+        "user": "",
+        "password": "",
+        "table_list": "url",
+        "table_article": "article"
+    },
+    "config": {
+        "timeout": 0,
+        "max_thread": 10,
+        "entry_url": "http://www.baidu.com",
+        "max_page": 10,
+        "header": "",
+        "cookie": ""
+    },
+    "rule": {
+        "column": {
+            "css": "",
+            "regular": "(.*?)",
+            "function_filter": ""
+        },
+        "list": {
+            "css": "",
+            "regular": "(.*?)",
+            "function_filter": "",
+            "page": {
+                "next_page": {
+                    "css": "",
+                    "regular": "(.*?)",
+                    "function_filter": ""
+                },
+                "page_list": {
+
+                }
+            }
+        },
+        "article": {
+            "css": "",
+            "regular": "(.*?)",
+            "function_filter": "",
+            "content": {
+                "title": {},
+                "author": {},
+                "time": {},
+                "body": {}
+            },
+            "page": {
+                "next_page": {
+                    "css": "",
+                    "regular": "(.*?)",
+                    "function_filter": ""
+                }
+            }
+        },
+        "file": {
+            "suffix": "jpg",
+            "function_path": "",
+            "page": {
+                "next_page": {
+                    "css": "",
+                    "regular": "(.*?)",
+                    "function_filter": ""
+                }
+            }
+        }
+    }
+}
