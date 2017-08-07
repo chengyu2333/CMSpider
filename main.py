@@ -1,7 +1,8 @@
 from cms_spider import spider
 from cms_spider import util
+import socket
 
-import io
 
-config = io.open("config.json").read()
-s = spider.Spider(config).run()
+socket.setdefaulttimeout(5)
+s = spider.Spider()
+s.run()

@@ -2,33 +2,28 @@ import json
 
 
 class Spider:
-    def __init__(self, config):
-        try:
-            self.config = json.loads(config)
-        except Exception as e:
-            raise
+    def __init__(self, config=None):
+        if config:
+            try:
+                self.config = json.loads(config)
+            except Exception as e:
+                raise
 
-    @staticmethod
     def run(self):
         print("run", self.config)
 
-    @staticmethod
     def stop(self):
         print("stop")
 
-    @staticmethod
-    def catch_url():
+    def catch_url(self):
         pass
 
-    @staticmethod
-    def catch_article():
+    def catch_article(self):
         pass
 
-    @staticmethod
-    def catch_file():
+    def catch_file(self):
         pass
 
-    @staticmethod
-    def recover_status():
+    def recover_status(self):
         pass
 
