@@ -1,5 +1,4 @@
 # 自定义过滤函数
-from cms_spider import util
 
 
 def rule_api_list(s):
@@ -11,6 +10,8 @@ def rule_html_column(s):
 
 
 def rule_html_list(s):
+    for i in s:
+        i.text
     return s
 
 

@@ -14,6 +14,7 @@ def get_str_middle(s, a, b):
     end = s.index(b)
     return s[start:end]
 
+
 # md5
 def md5(obj):
     m = hashlib.md5()
@@ -29,20 +30,6 @@ def html_decode(html):
         return html.decode("utf8", errors="ignore")
     else:
         return html
-
-
-# 过滤url
-def url_filter(url):
-    try:
-        # 外链
-        if "http" in url and "hexun.com" in url:
-            # 爬取层次
-            if url.count("/") <= 4:
-                return True
-        else:
-            return False
-    except Exception as e:
-        return False
 
 
 # 进度条

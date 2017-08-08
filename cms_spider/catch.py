@@ -1,5 +1,6 @@
 from cms_spider import config
 from cms_spider import util
+from cms_spider import filter
 from urllib import request
 from bs4 import BeautifulSoup
 import requests
@@ -8,6 +9,7 @@ import socket
 conf = config.config
 headers = conf['basic']['header']
 socket.setdefaulttimeout(conf['basic']['timeout'])
+
 
 def catch_api(url, method="get", data=None, str_filter=None):
     try:
@@ -24,12 +26,11 @@ def catch_api(url, method="get", data=None, str_filter=None):
 
 def catch_html(url):
     try:
-        if not util.url_filter(url):
-            return
+        # if not filter.url_filter(url):
+        #     return
         html = requests.get(url, headers=headers).content
         html = util.html_decode(html)
-        dom = BeautifulSoup(html, "html5lib")
-        return dom
+        return html
     except Exception as e:
         raise e
 
