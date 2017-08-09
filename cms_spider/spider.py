@@ -2,9 +2,9 @@ import json
 from cms_spider import catch
 from cms_spider import catch_list
 from cms_spider import catch_article
-from cms_spider import database
 from cms_spider import config
-from cms_spider import urls
+from cms_spider import url_manager
+import os
 
 conf = config.config
 
@@ -13,12 +13,14 @@ class Spider:
     def __init__(self, config=None):
         if config:
             try:
-                self.config = json.loads(config)
+                self.conf = json.loads(config)
             except Exception as e:
                 raise
 
     def run(self):
-        print("run", self.config)
+        self.catch_url()
+        self.catch_article()
+        self.catch_file()
 
 
     def catch_url(self):
@@ -31,7 +33,7 @@ class Spider:
             catch_article.catch_article_recursive(conf['rule_html']['article']['source'])
         else:
             while True:
-                url = urls.get_url(10)
+                url = url_manager.get_url(10, "html")
                 if not url:
                     break
                 for u in url:
@@ -39,13 +41,19 @@ class Spider:
 
     def catch_file(self):
         while True:
-            url = urls.get_url(10)
+            url = url_manager.get_url(10, "file")
             if not url:
                 break
             for u in url:
-                catch.catch_file(['_id'], path)
+                path = conf['rule_html']['file']['basic_path'] + conf['rule_html']['file']['hash_path'](u["_id"])
+                if not os.path.exists(path):
+                    os.makedirs(path)
+                filename = u["_id"].split(".")[-1].split("?")[0]
+                full_path = path + u['title'] + "." + conf['rule_html']['file']['hash_filename'](filename)
+                print(full_path)
+                catch.catch_file(u['_id'], full_path)
 
     def recover_status(self):
-        database.DB().recover_status()
+        url_manager.recover_status()
         pass
 

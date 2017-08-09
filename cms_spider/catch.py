@@ -1,10 +1,10 @@
 from cms_spider import config
 from cms_spider import util
-from cms_spider import filter
+from cms_spider import url_manager
 from urllib import request
-from bs4 import BeautifulSoup
 import requests
 import socket
+# import os
 
 conf = config.config
 headers = conf['basic']['header']
@@ -36,6 +36,8 @@ def catch_html(url):
 
 
 def catch_file(url, filename):
+    # if not os.path.exists(filename):
+    #     os.makedirs(filename)
     try:
         req = request.Request(url, headers=headers)
         data = request.urlopen(req).read()
@@ -43,5 +45,7 @@ def catch_file(url, filename):
             f.write(data)
             f.flush()
             f.close()
+            url_manager.set_url(url, 2)
     except Exception as e:
+        url_manager.set_url(url, -1)
         raise e

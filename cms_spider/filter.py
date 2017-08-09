@@ -1,5 +1,5 @@
 from bs4 import BeautifulSoup
-from cms_spider import my_filter
+import re
 
 
 def dom_filter(html, css="", func=None):
@@ -24,17 +24,12 @@ def completion_url(target_url, example_url):
 
 # 过滤url
 def url_filter(url):
-    try:
-        # 外链
-        if "http" in url:
-            # url层次
-            if url.count("/") <= 4:
-                return True
-        else:
-            return False
-    except Exception as e:
-        return False
-
+    if re.match(r'^https?:/{2}\w.+$', url):
+        # 层次
+        # if url.count("/") > 4:
+        #     return False
+        return True
+    return False
 
 # 语义指纹
 def duplicate(s):

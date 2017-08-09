@@ -1,9 +1,17 @@
 #!/usr/bin/python
 # encoding: utf-8
 import re
+import time
 import sys
 import platform
 import hashlib
+
+
+# 转成timestamp
+def get_timestamp(t, f='%Y-%m-%d %H:%M:%S'):
+    tup = time.strptime(t, f)
+    ts = time.mktime(tup)
+    return ts
 
 
 # 取文本中间
