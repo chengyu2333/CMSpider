@@ -1,8 +1,7 @@
-from cms_spider import spider
-from cms_spider import util
+import cmspider
 
-
-s = spider.Spider()
+s = cmspider.Spider()
 s.recover_status()
-s.catch_url()
-# s.catch_file()
+s.fetch_url()
+s.fetch_file()
+s.fetch_article()
