@@ -10,16 +10,16 @@ DUPLICATE_COUNT = 0
 # 抓取单个文章
 def catch_article(url):
     try:
-        if "article" in conf['rule_html']:
+        if "html" in conf['article']:
             html = catch.catch_html(url)
-            html = filter.dom_filter(html, conf['rule_html']['article']['css'], conf['rule_html']['article']['my_filter'])
+            html = filter.dom_filter(html, conf['article']['html']['css'], conf['article']['html']['my_filter'])
             if html:
                 print(url, " ok")
                 url_manager.set_url(url, 2)
                 my_store.store_article(html[0])
             else:
                 url_manager.set_url(url, -1)
-        elif "article" in conf['rule_api']:
+        elif "api" in conf['article']:
             # TODO 从api获取文章
             pass
         else:
@@ -32,19 +32,19 @@ def catch_article(url):
 # 递归爬取文章
 def catch_article_recursive(url):
     try:
-        if "article" in conf['rule_html']:
+        if "html" in conf['article']:
             print(url)
             html = catch.catch_html(url)
             if not html:
                 return
-            res = filter.dom_filter(html, conf['rule_html']['article']['css'], conf['rule_html']['article']['my_filter'])
+            res = filter.dom_filter(html, conf['article']['html']['css'], conf['article']['html']['my_filter'])
             if res:
                 url_manager.set_url(url, 2)
                 my_store.store_article(res[0])
             else:
                 url_manager.set_url(url, -1)
             # TODO 递归终止条件
-            page = filter.dom_filter(html, conf['rule_html']['article']['page']['next_page']['css'])
+            page = filter.dom_filter(html, conf['article']['html']['page']['next_page']['css'])
             if page:
                 new_url = filter.completion_url(page[0]['href'], url)
                 catch_article_recursive(new_url)

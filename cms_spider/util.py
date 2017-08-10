@@ -1,10 +1,17 @@
 #!/usr/bin/python
 # encoding: utf-8
-import re
 import time
 import sys
 import platform
 import hashlib
+
+
+# 根据值查找键
+def get_dict_key(d, value):
+    for k, v in d.items():
+        if v == value:
+            return k
+    return None
 
 
 # 转成timestamp

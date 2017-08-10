@@ -26,17 +26,21 @@ config = {
         "entry_url": "http://www.neeq.com.cn",
         "start_page": 0,  # 起始页
         "max_page": 999,  # 最多爬取的页数
-        "total_page": 10,  # 总页数可动态修改
+        "total_page": 10,  # 总页数,可动态修改
         "start_date": "",  # 开始日期
         "end_date": "",  # 结束日期
         "max_replicate": 0,  # 连续重复多少次则停止抓取url，0为不限
-        "catch_all": True,  # 是否抓取全部，False为更新数据，第一次运行时选择True
+        "catch_all": True,  # 是否抓取全部，False为增量更新数据，第一次运行时选择True
         "header": {"User-Agent": "Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/59.0.3071.86 Safari/537.36"},
     },
-    # api抓取规则
-    "rule_api": {
-        # 列表api规则
-        "list": {
+    # 板块抓取规则
+    "column": {
+        "css": "",
+        "my_filter": my_filter.rule_html_column
+    },
+    # 列表规则
+    "list": {
+        "api": {
             "filetype": "file",  # html | file
             "method": "post",
             "url": "http://www.neeq.com.cn/disclosureInfoController/infoResult.do",
@@ -59,19 +63,7 @@ config = {
             },
             "my_filter": my_filter.rule_api_list,  # 自定义结果过滤器
         },
-        # 文章api规则
-        "article": {
-        },
-    },
-    # 网页抓取规则
-    "rule_html": {
-        # 板块抓取规则
-        "column": {
-            "css": "",
-            "my_filter": my_filter.rule_html_column
-        },
-        # 列表抓取规则
-        "list": {
+        "html": {
             "url": "http://forex.hexun.com/market/index-##page##.html",
             "css": ".mainboxcontent ul li",
             "my_filter": my_filter.rule_html_list,
@@ -84,9 +76,14 @@ config = {
                 "page_list": {
                 }
             }
+        }
+
+    },
+    # 文章抓取规则
+    "article": {
+        "api": {
         },
-        # 文章抓取规则
-        "article": {
+        "html": {
             # http://www.neeq.com.cn/notice/20000477.html
             "source": "",  # url来源：空，数据库，不为空，递归
             "css": ".newstext",  # 文章主体dom
@@ -95,30 +92,23 @@ config = {
                 # 递归时配置
                 "next_page": {
                     "css": ".next a",
-                    "my_filter": my_filter.rule_html_article_page
-                }
-            }
-        },
-        # 文件抓取规则
-        "file": {
-            "basic_path": "./file/",
-            "hash_path": my_filter.hash_path,
-            "hash_filename": my_filter.hash_filename,
-            "page": {
-                # 递归时配置
-                "next_page": {
-                    "css": "",
-                    "my_filter": my_filter.rule_file_page
+                    "my_filter": my_filter.rule_html_article_page,
                 }
             }
         }
-    }
+
+    },
+    # 文件抓取规则
+    "file": {
+        "basic_path": "./file/",
+        "hash_path": my_filter.hash_path,
+        "hash_filename": my_filter.hash_filename,
+        "page": {
+            # 递归时配置
+            "next_page": {
+                "css": "",
+                "my_filter": my_filter.rule_file_page
+            }
+        }
+    },
 }
-
-
-# 根据值查找键
-def get_dict_key(d, value):
-    for k, v in d.items():
-        if v == value:
-            return k
-    return None

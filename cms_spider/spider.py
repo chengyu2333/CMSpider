@@ -28,9 +28,9 @@ class Spider:
 
     # 爬取文章
     def catch_article(self):
-        source = conf['rule_html']['article']['source']
+        source = conf['article']['html']['source']
         if source:
-            catch_article.catch_article_recursive(conf['rule_html']['article']['source'])
+            catch_article.catch_article_recursive(conf['article']['html']['source'])
         else:
             while True:
                 url = url_manager.get_url(10, "html")
@@ -45,11 +45,11 @@ class Spider:
             if not url:
                 break
             for u in url:
-                path = conf['rule_html']['file']['basic_path'] + conf['rule_html']['file']['hash_path'](u["_id"])
+                path = conf['file']['basic_path'] + conf['file']['hash_path'](u["_id"])
                 if not os.path.exists(path):
                     os.makedirs(path)
                 filename = u["_id"].split(".")[-1].split("?")[0]
-                full_path = path + u['title'] + "." + conf['rule_html']['file']['hash_filename'](filename)
+                full_path = path + u['title'] + "." + conf['file']['hash_filename'](filename)
                 print(full_path)
                 catch.catch_file(u['_id'], full_path)
 

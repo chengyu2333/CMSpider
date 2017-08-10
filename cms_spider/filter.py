@@ -9,7 +9,7 @@ def dom_filter(html, css="", func=None):
         if func:
             html = func(html)
         return html
-    except Exception as e:
+    except Exception:
         raise
 
 
@@ -30,6 +30,7 @@ def url_filter(url):
         #     return False
         return True
     return False
+
 
 # 语义指纹
 def duplicate(s):

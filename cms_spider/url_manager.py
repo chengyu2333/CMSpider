@@ -12,7 +12,7 @@ file_suffix = ["jpg","jpeg","png","doc","docx","xls","xlsx","ppt","pdf","zip","t
 
 # 添加url
 def put_url(url, title, timestamp=0.0, filetype=""):
-    filetype = conf['rule_api']['list']['filetype']
+    filetype = conf['list']['api']['filetype']
     # 简单识别url类型
     suffix = url.split(".")[-1].split("?")[0]
     if not filetype:
