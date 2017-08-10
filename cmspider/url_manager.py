@@ -42,11 +42,11 @@ class UrlManager:
             raise e
 
     # 获取url列表
-    def get_url(self, num, type="html"):
+    def get_url(self, num, file_type="html"):
         try:
-            if type == "html":
+            if file_type == "html":
                 res = self.con.find({"$or": [{"status": {"$exists": False}}, {"status": 0}], "type": "html"}).limit(num)
-            elif type == "file":
+            elif file_type == "file":
                 res = self.con.find({"$or": [{"status": {"$exists": False}}, {"status": 0}], "type": "file"}).limit(num)
             else:
                 raise Exception("文件类型错误")
@@ -59,11 +59,11 @@ class UrlManager:
         return urls
 
     # 获取最新url
-    def get_last_url(self, type="html"):
+    def get_last_url(self, file_type="html"):
         try:
-            if type=="html":
+            if file_type == "html":
                 res = self.con.find({"type": "html"}).sort('timestamp', -1).limit(1)
-            elif type=="file":
+            elif file_type == "file":
                 res = self.con.find({"type": "file"}).sort('timestamp', -1).limit(1)
             else:
                 raise Exception("文件类型错误")
