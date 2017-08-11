@@ -1,6 +1,10 @@
-from cmspider import fetch
+from cmspider import Fetch
 
 
-# 抓取板块url
-def fetch_colunm(url):
-    pass
+class FetchColumn(Fetch):
+    def __init__(self):
+        pass
+
+    # 抓取板块url
+    def fetch_colunm(url):
+        pass

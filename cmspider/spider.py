@@ -1,16 +1,18 @@
 import json
 from cmspider import UrlManager
-from cmspider import Fetch
-from cmspider import fetch_list
-from cmspider import fetch_article
+from cmspider import FetchFile
+from cmspider import FetchList
+from cmspider import FetchArticle
 from cmspider import config
-
-import os
-
-conf = config
+from pymongo import errors
 
 
 class Spider:
+    farticle = FetchArticle()
+    flist = FetchList()
+    ffile = FetchFile()
+    url_manager = UrlManager()
+
     def __init__(self, conf=None):
         if conf:
             try:
@@ -24,43 +26,38 @@ class Spider:
         self.fetch_article()
         self.fetch_file()
 
-    @staticmethod
-    def fetch_url():
+    def fetch_url(self):
         print("开始抓取url列表")
-        fetch_list.fetch_list_multi()
+        try:
+            self.flist.fetch_list_multi()
+        except Exception as e:
+            print(str(e))
 
     # 爬取文章
-    @staticmethod
-    def fetch_article():
+    def fetch_article(self):
         print("开始抓取文章")
-        source = conf['article']['html']['source']
+        source = config['article']['html']['source']
         if source:
-            fetch_article.fetch_article_recursive(conf['article']['html']['source'])
+            self.farticle.fetch_article_recursive(config['article']['html']['source'])
         else:
             while True:
-                url = UrlManager().get_url(10, "html")
+                url = self.url_manager.get_url(10, "html")
                 if not url:
                     break
                 for u in url:
-                    fetch_article.fetch_article(u['_id'])
-        print("文章抓取完成")
+                    self.farticle.fetch_article(u['_id'])
+        print("\n文章抓取完成")
 
     # 爬取文件
-    @staticmethod
-    def fetch_file():
+    def fetch_file(self):
         print("开始下载文件")
         while True:
-            url = UrlManager().get_url(10, "file")
-            if not url:
+            urls = self.url_manager.get_url(10, "file")
+            if not urls:
                 break
-            for u in url:
-                path = conf['file']['basic_path'] + conf['file']['hash_path'](u["_id"])
-                if not os.path.exists(path):
-                    os.makedirs(path)
-                filename = u["_id"].split(".")[-1].split("?")[0]
-                full_path = path + u['title'] + "." + conf['file']['hash_filename'](filename)
-                print("\r"+full_path, end="")
-                Fetch().fetch_file(u['_id'], full_path)
+            for url_obj in urls:
+                self.ffile.fetch_file(url_obj)
+
         print("文件下载完成")
 
     @staticmethod

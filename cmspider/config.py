@@ -1,5 +1,4 @@
-import cmspider
-from cmspider import Filter
+# from cmspider import MyFilter
 
 # 说明：
 # 1.使用##page##来标记页码
@@ -24,7 +23,8 @@ config = {
     "basic": {
         "timeout": 5,  # 连接超时时间
         "max_thread": 10,  # 最大线程
-        "header": {"User-Agent": "Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36(KHTML, like Gecko) Chrome/59.0.3071.86 Safari/537.36",
+        "header": {"User-Agent": "Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36(KHTML, like Gecko) "
+                                 "Chrome/59.0.3071.86 Safari/537.36",
                    "cookie": "",
                    },
         "entry_url": "http://www.neeq.com.cn",
@@ -35,53 +35,58 @@ config = {
         "end_date": "",  # 结束日期
         "max_replicate": 0,  # 连续重复多少次则停止抓取url，0为不限
         "fetch_all": True,  # 是否抓取全部，False为增量更新数据，第一次运行时选择True
-
     },
     # 板块（API）抓取规则
     "column": {
         "css": "",
-        "my_filter": Filter.rule_html_column
+        "my_filter": "MyFilter.rule_html_column"
     },
     # 列表抓取规则
     "list": {
         "api": {
             "filetype": "file",  # html | file
             "method": "post",
-            "url": "http://www.neeq.com.cn/disclosureInfoController/infoResult.do",
-            # "url": "http://www.neeq.com.cn/info/list.do",
-            # "url": "http://open.tool.hexun.com/MongodbNewsService/newsListPageByJson.jsp?id=128367438&s=10&cp=##page##&priority=1",
+            # "url": "http://www.neeq.com.cn/disclosureInfoController/infoResult.do",
+            "url": "http://www.neeq.com.cn/info/list.do",
+            # "url": "http://open.tool.hexun.com/MongodbNewsService/newsListPageByJson.jsp?id=128367438&s=10"
+            #        "&cp=##page##&priority=1",
             # POST数据
             "args": {
                 # list.do 文章
-                # "page": "##page##",
-                # "pageSize": "10",
-                # "keywords": "",
-                # "publishDate": "",
-                # "nodeId": "93",
-                # infoResult.do 文件
-                "disclosureType": "6",
                 "page": "##page##",
-                "isNewThree": "1",
-                "startTime": "2016-08-07",
-                "endTime": "2017-08-07",
+                "pageSize": "10",
+                "keywords": "",
+                "publishDate": "",
+                "nodeId": "93",
+                # infoResult.do 文件
+                # "disclosureType": "6",
+                # "page": "##page##",
+                # "isNewThree": "1",
+                # "startTime": "2016-08-07",
+                # "endTime": "2017-08-07",
             },
-            "my_filter": Filter.rule_api_list,  # 自定义结果过滤器
+            "my_filter": "MyFilter.rule_api_list",
+            "store": "store_article_list"
         },
         "html": {
             "url": "http://forex.hexun.com/market/index-##page##.html",
+            "filter": {
+
+            },
             "css": ".mainboxcontent ul li",
-            "my_filter": Filter.rule_html_list,
+            "regular": "",
+            "my_filter": "MyFilter.rule_html_list",
+            "store": "store_article",
             "page": {
                 # 递归时配置
                 "next_page": {
                     "css": "",
-                    "my_filter": Filter.rule_html_list_page
+                    "my_filter": "MyFilter.rule_html_list_page"
                 },
                 "page_list": {
                 }
             }
         }
-
     },
     # 文章抓取规则
     "article": {
@@ -89,29 +94,32 @@ config = {
         },
         "html": {
             # http://www.neeq.com.cn/notice/20000477.html
-            "source": "",  # url来源：空，数据库，不为空，递归
-            "css": ".newstext",  # 文章主体dom
-            "my_filter": Filter.rule_html_article,
+            "source": "",  # url来源：为空从数据库读取，不为空采用递归
+            "filter": {
+
+            },
+            "css": "head title",  # 文章主体dom
+            "regular": "",
+            "my_filter": "MyFilter.rule_html_article",
             "page": {
                 # 递归时配置
                 "next_page": {
                     "css": ".next a",
-                    "my_filter": Filter.rule_html_article_page,
+                    "my_filter": "MyFilter.rule_html_article_page",
                 }
             }
         }
-
     },
     # 文件抓取规则
     "file": {
         "basic_path": "./file/",
-        "hash_path": Filter.hash_path,
-        "hash_filename": Filter.hash_filename,
+        "hash_path": "MyFilter.hash_path",
+        "hash_filename": "MyFilter.hash_filename",
         "page": {
             # 递归时配置
             "next_page": {
                 "css": "",
-                "my_filter": Filter.rule_file_page
+                "my_filter": "MyFilter.rule_file_page"
             }
         }
     }

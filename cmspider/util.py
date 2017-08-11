@@ -1,5 +1,3 @@
-#!/usr/bin/python
-# encoding: utf-8
 import time
 import sys
 import platform
@@ -7,7 +5,6 @@ import hashlib
 
 
 class Util:
-
     # 语义指纹
     @staticmethod
     def duplicate(s):

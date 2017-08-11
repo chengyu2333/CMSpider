@@ -4,7 +4,6 @@ from pymongo import errors
 
 
 class UrlManager:
-
     conf = config
     db = DB()
     con = db.get_mongodb_conn(conf['db']['table_list'])
@@ -12,11 +11,10 @@ class UrlManager:
 
     # 添加url
     def put_url(self, url, title, timestamp=0.0, filetype=""):
-        filetype = self.conf['list']['api']['filetype']
         # 简单识别url类型
         suffix = url.split(".")[-1].split("?")[0]
         if not filetype:
-            filetype = "html"
+            filetype = self.conf['list']['api']['filetype']
             for i in self.file_suffix:
                 if i == suffix:
                     filetype = "file"
@@ -72,7 +70,6 @@ class UrlManager:
         return res[0]
 
     # 恢复全部状态
-
     def set_all_status(self, status=0):
         try:
             return self.con.update({}, {"$set": {"status": status}}, multi=True)
