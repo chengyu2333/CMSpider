@@ -10,17 +10,3 @@ import django
 # print(timestamp)
 #
 # print(time.ctime(1502178644))
-
-# class My:
-#     re = ""
-#     def __init__(self,arg):
-#         self.re = self.pr(arg)
-#
-#     def pr(self, str):
-#         return (str)
-#
-#
-# a = My("adsf")
-#
-# print(a.re)
-print(django.get_version())

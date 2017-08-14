@@ -52,4 +52,4 @@ class FetchArticle(Fetch):
         except errors.DuplicateKeyError as e:
             global DUPLICATE_COUNT
             DUPLICATE_COUNT += 1
-            print("重复文章", url)
+            print("重复文章", url)celery

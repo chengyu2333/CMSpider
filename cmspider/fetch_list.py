@@ -18,7 +18,7 @@ class FetchList(Fetch):
             if "api" in config['list']:
                 # 通过api获取
                 c = config['list']['api']
-                res = self.fetch_api(c['url'], method=c['method'], data=c['args'])
+                res = self.fetch_api(c['url'], method=c['method'], data=c['post_data'])
                 Filter(res, config['list']['api']).store("list")
                 return res
             elif "html" in config['list']:
@@ -49,7 +49,7 @@ class FetchList(Fetch):
                 page_mark = "##inurl##"
                 url = config['list']['api']['url'].split("##page##")
             else:  # post
-                page_mark = cmspider.Util.get_dict_key(config['list']['api']['args'], "##page##")
+                page_mark = cmspider.Util.get_dict_key(config['list']['api']['post_data'], "##page##")
         elif "html" in config['list']:  # html
             if config['list']['html']['url'].find("##page##") >= 1:
                 page_mark = "##inurl##"
@@ -66,7 +66,8 @@ class FetchList(Fetch):
                 rep = config['basic']['max_replicate'] >= self.duplicate_count
 
             # 达到最新地址
-            # url_manager.get_last_url()
+            # self.url_manager.get_last_url()
+            # raise exception.ListFinishedException
 
             # 开始抓取
             if i <= max_page and i <= total and rep:  # 范围
@@ -77,7 +78,7 @@ class FetchList(Fetch):
                             config['list']['api']['url'] = url[0] + str(i) + url[1]
                             print(config['list']['api']['url'])
                         else:  # post
-                            config['list']['api']['args'][page_mark] = str(i)
+                            config['list']['api']['post_data'][page_mark] = str(i)
                     elif "html" in config['list']:  # html
                         if page_mark == "##inurl##":
                             config['list']['html']['url'] = url[0] + str(i) + url[1]

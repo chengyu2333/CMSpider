@@ -41,17 +41,18 @@ config = {
         "css": "",
         "my_filter": "MyFilter.rule_html_column"
     },
-    # 列表抓取规则
+    # URL列表抓取规则
     "list": {
+        # 通过api获取
         "api": {
-            "filetype": "file",  # html | file
+            # "filetype": "file",  # html | file
             "method": "post",
             "url": "http://www.neeq.com.cn/disclosureInfoController/infoResult.do",
             # "url": "http://www.neeq.com.cn/info/list.do",
             # "url": "http://open.tool.hexun.com/MongodbNewsService/newsListPageByJson.jsp?id=128367438&s=10"
             #        "&cp=##page##&priority=1",
             # POST数据
-            "args": {
+            "post_data": {
                 # list.do 文章
                 # "page": "##page##",
                 # "pageSize": "10",
@@ -69,6 +70,7 @@ config = {
             # "store": "store_article_list"
             "store": "store_file_list"
         },
+        # 通过html爬取
         "html": {
             "url": "http://forex.hexun.com/market/index-##page##.html",
             "filter": {

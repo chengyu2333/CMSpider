@@ -22,7 +22,7 @@ class MyStore(Store):
             file_url = "http://www.neeq.com.cn" + item['destFilePath']
             title = item['disclosureTitle']
             timestamp = item['upDate']['time']
-            # 是否更新数据
+            # 到达最新数据
             if not config['basic']['fetch_all']:
                 if timestamp <= self.url_manager.get_last_url("file")['timestamp']:
                     raise exception.ListFinishedException
