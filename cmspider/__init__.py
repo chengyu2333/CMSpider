@@ -1,3 +1,21 @@
+__all__ = [
+    'config',
+    'exception',
+    'Util',
+    'DB',
+    'UrlManager',
+    'Store',
+    'MyStore',
+    'MyFilter',
+    'Filter',
+    'Fetch',
+    'FetchList',
+    'FetchArticle',
+    'FetchFile',
+    'FetchColumn',
+    'Spider'
+]
+
 
 from cmspider.config import config
 from cmspider import exception
@@ -14,6 +32,3 @@ from cmspider.fetch_article import FetchArticle
 from cmspider.fetch_column import FetchColumn
 from cmspider.fetch_file import FetchFile
 from cmspider.spider import Spider
-
-if __name__ == '__main__':
-    print('初始化')

@@ -46,27 +46,28 @@ config = {
         "api": {
             "filetype": "file",  # html | file
             "method": "post",
-            # "url": "http://www.neeq.com.cn/disclosureInfoController/infoResult.do",
-            "url": "http://www.neeq.com.cn/info/list.do",
+            "url": "http://www.neeq.com.cn/disclosureInfoController/infoResult.do",
+            # "url": "http://www.neeq.com.cn/info/list.do",
             # "url": "http://open.tool.hexun.com/MongodbNewsService/newsListPageByJson.jsp?id=128367438&s=10"
             #        "&cp=##page##&priority=1",
             # POST数据
             "args": {
                 # list.do 文章
-                "page": "##page##",
-                "pageSize": "10",
-                "keywords": "",
-                "publishDate": "",
-                "nodeId": "93",
-                # infoResult.do 文件
-                # "disclosureType": "6",
                 # "page": "##page##",
-                # "isNewThree": "1",
-                # "startTime": "2016-08-07",
-                # "endTime": "2017-08-07",
+                # "pageSize": "10",
+                # "keywords": "",
+                # "publishDate": "",
+                # "nodeId": "93",
+                # infoResult.do 文件
+                "disclosureType": "6",
+                "page": "##page##",
+                "isNewThree": "1",
+                "startTime": "2016-08-07",
+                "endTime": "2017-08-07",
             },
-            "my_filter": "MyFilter.rule_api_list",
-            "store": "store_article_list"
+            "my_filter": "rule_api_list",
+            # "store": "store_article_list"
+            "store": "store_file_list"
         },
         "html": {
             "url": "http://forex.hexun.com/market/index-##page##.html",
@@ -76,12 +77,12 @@ config = {
             "css": ".mainboxcontent ul li",
             "regular": "",
             "my_filter": "MyFilter.rule_html_list",
-            "store": "store_article",
+            "store": "store_article_list",
             "page": {
                 # 递归时配置
                 "next_page": {
                     "css": "",
-                    "my_filter": "MyFilter.rule_html_list_page"
+                    "my_filter": "rule_html_list_page"
                 },
                 "page_list": {
                 }
@@ -98,14 +99,16 @@ config = {
             "filter": {
 
             },
-            "css": "head title",  # 文章主体dom
+            "css": ".newstext",  # 文章主体dom
             "regular": "",
-            "my_filter": "MyFilter.rule_html_article",
+            "my_filter": "rule_html_article",
+            "store": "store_article",
+            "max_num": 1,
             "page": {
                 # 递归时配置
                 "next_page": {
                     "css": ".next a",
-                    "my_filter": "MyFilter.rule_html_article_page",
+                    "my_filter": "rule_html_article_page",
                 }
             }
         }
@@ -113,13 +116,15 @@ config = {
     # 文件抓取规则
     "file": {
         "basic_path": "./file/",
-        "hash_path": "MyFilter.hash_path",
-        "hash_filename": "MyFilter.hash_filename",
+        "hash_path": "hash_path",
+        "hash_filename": "hash_filename",
+        # "store": "store_article_list",
+        "max_num": 10,
         "page": {
             # 递归时配置
             "next_page": {
                 "css": "",
-                "my_filter": "MyFilter.rule_file_page"
+                "my_filter": "rule_file_page"
             }
         }
     }

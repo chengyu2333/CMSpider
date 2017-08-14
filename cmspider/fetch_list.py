@@ -32,7 +32,7 @@ class FetchList(Fetch):
             self.duplicate_count = 0
         except errors.DuplicateKeyError as e:
             self.duplicate_count += 1
-            # print("\r重复url " + str(self.duplicate_count), end="")
+            print("\r重复url " + str(self.duplicate_count), end="")
         except exception.ListFinishedException as f:
             raise f
 

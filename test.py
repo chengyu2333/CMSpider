@@ -1,5 +1,6 @@
 import datetime
 import time
+import django
 
 # now = datetime.datetime.now()
 # print(now.timetuple())
@@ -22,4 +23,4 @@ import time
 # a = My("adsf")
 #
 # print(a.re)
-
+print(django.get_version())

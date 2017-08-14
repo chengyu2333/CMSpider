@@ -3,13 +3,11 @@ from cmspider import config
 from cmspider import Util
 from cmspider import exception
 from pymongo import errors
-from cmspider import UrlManager
 import json
 
 
 class MyStore(Store):
-    # url_manager = UrlManager()
-    count = 0
+    # count = 0
 
     def __init__(self):
         pass
@@ -31,13 +29,15 @@ class MyStore(Store):
             try:
                 self.url_manager.put_url(file_url, title, timestamp, "file")
             except errors.DuplicateKeyError as dk:
+                self.count += 1
                 raise
-                # TODO 改为这里验证，抛出完成异常
+                # TODO 抛出完成异常
+        print(self.count,"  ",total_page)
         Util.view_bar(self.count, total_page)  # 进度条
         self.count += 1
 
     def store_article_list(self, data):
-        self.count += 1
+        # self.count += 1
         try:
             data = json.loads(data)
             # list.do
@@ -50,18 +50,20 @@ class MyStore(Store):
                 timestamp = Util.get_timestamp(t, f="%Y-%m-%d %H:%M:%S.0")
                 self.url_manager.put_url(html_url, title, timestamp, "html")
 
-            print(self.count, " ", total_page)
+            # print(self.count, " ", total_page)
             Util.view_bar(self.count, total_page)  # 进度条
-            # self.count += 1
+            self.count += 1
 
         except Exception as e:
             raise e
-
             # 存储文章
 
     def store_article(self, res, url):
-        print(res)
+
         if res:
+            res['_id'] = url
+            print(res['title'])
+            self.db.put_article(res)
             self.url_manager.set_url_status(url, 2)
         else:
             self.url_manager.set_url_status(url, -1)

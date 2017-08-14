@@ -1,4 +1,6 @@
 import hashlib
+from cmspider import Util
+from bs4 import BeautifulSoup
 
 
 class MyFilter:
@@ -40,6 +42,13 @@ class MyFilter:
 
     @staticmethod
     def rule_html_article(s):
+        s = s[0]
+        title = s.select("h3")[0].text
+        info = s.select(".info")[0].text
+        time = Util.get_str_middle(info,"发布时间："," 点击次数")
+        content = s.select(".txt")[0]
+
+        s = {"title": title, "time": time, "content": str(content)}
         return s
 
     @staticmethod

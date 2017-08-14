@@ -15,7 +15,7 @@ class FetchArticle(Fetch):
             if "html" in config['article']:
                 html = self.fetch_html(url)
                 # html = Filter.dom_filter(html, config['article']['html']['css'], config['article']['html']['my_filter'])
-                Filter(html, config['article']['html']).store_article(url)
+                Filter(html, config['article']['html']).store("article", url)
 
             elif "api" in config['article']:
                 # html = self.fetch_html(url)
@@ -38,7 +38,7 @@ class FetchArticle(Fetch):
                 if not html:
                     return
                 # res = Filter.dom_filter(html, config['article']['html']['css'], config['article']['html']['my_filter'])
-                Filter(html, config['article']['html']).store_article("article", url)
+                Filter(html, config['article']['html']).store("article", url)
 
                 # TODO 递归终止条件
                 page = Filter.dom_filter(html, config['article']['html']['page']['next_page']['css'])

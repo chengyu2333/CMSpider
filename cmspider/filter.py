@@ -18,16 +18,16 @@ class Filter(MyStore):
                 self.__result = self.reg_filter(string, conf_rule['regular'])
             if "my_filter" in conf_rule and conf_rule['my_filter']:
                 if self.__result:
-                    self.__result = eval(conf_rule['my_filter'])(self.__result)
+                    self.__result = eval("MyFilter."+conf_rule['my_filter'])(self.__result)
                 else:
-                    self.__result = eval(conf_rule['my_filter'])(string)
+                    self.__result = eval("MyFilter."+conf_rule['my_filter'])(string)
 
     def store(self, table, url=""):
         try:
             if table == "list":
                 eval("self."+self.__conf['store'])(self.__result)
             elif table == "article":
-                eval("self." + self.__conf['store'])(self.store_article(), url)
+                eval("self." + self.__conf['store'])(self.__result, url)
         except Exception as e:
             raise
 
@@ -64,7 +64,7 @@ class Filter(MyStore):
     def reg_filter(self, string, p):
         res = []
         if self.__result:
-            data = self.__result
+            data = str(self.__result)
         else:
             data = string
         for item in data:
