@@ -3,11 +3,11 @@ from cmspider import Fetch
 from cmspider import Store
 from cmspider import Filter
 from pymongo import errors
-DUPLICATE_COUNT = 0
 
 
 class FetchArticle(Fetch):
     store = Store()
+    duplicate_count = 0
 
     # 抓取单个文章
     def fetch_article(self, url):
@@ -25,8 +25,7 @@ class FetchArticle(Fetch):
             else:
                 raise Exception("没有配置文章抓取规则")
         except errors.DuplicateKeyError as e:
-            global DUPLICATE_COUNT
-            DUPLICATE_COUNT += 1
+            self.duplicate_count += 1
             print("重复文章", url)
 
     # 递归爬取文章
@@ -50,6 +49,6 @@ class FetchArticle(Fetch):
             else:
                 raise Exception("没有配置文章抓取规则")
         except errors.DuplicateKeyError as e:
-            global DUPLICATE_COUNT
-            DUPLICATE_COUNT += 1
-            print("重复文章", url)celery
+            self.duplicate_count += 1
+            print("重复文章", url)
+            # celery
