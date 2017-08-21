@@ -1,6 +1,7 @@
 import datetime
 import time
-import django
+import djcelery
+
 
 # now = datetime.datetime.now()
 # print(now.timetuple())
@@ -10,3 +11,14 @@ import django
 # print(timestamp)
 #
 # print(time.ctime(1502178644))
+
+
+from celery_app import task1
+from celery_app import task2
+
+re = task1.multiply.delay(2, 8)
+re2 = task2.add.delay(5, 6)
+print("ok")
+print(re.get())
+
+

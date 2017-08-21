@@ -8,8 +8,9 @@ config = {
     # 数据库配置
     "db": {
         "type": "mongodb",
-        "host": "127.0.0.1",
-        "port": 12345,
+        # "host": "127.0.0.1",
+        "host": "q.213.name",
+        "port": 27017,
         "db_name": "neeq",
         "user": "",
         "password": "",
