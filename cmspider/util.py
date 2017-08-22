@@ -5,6 +5,12 @@ import hashlib
 
 
 class Util:
+    COUNT_PROCESSED = 0
+    COUNT_SUCCESS = 0
+    COUNT_DUPLICATE = 0
+    COUNT_FAILED = 0
+
+
     # 语义指纹
     @staticmethod
     def duplicate(s):
@@ -55,11 +61,13 @@ class Util:
     @staticmethod
     def view_bar(num, total):
         # os.system('cls'.encode().decode("gbk"))
-        num = int(num/total*50)
-        total = 50
+        current = int(num/total*50)
+        max_num = 50
         rate = num / total
-        rate_num = int(rate * 100)
-        r = '\r[%s%s]%d%%  ' % ("="*num, " "*(50-num), rate_num, )
+        rate_num = rate * 100.0
+
+        # print(Util.count, "  ", total_page)
+        r = '\r[%s%s]%.2f%%  [%d/%d]' % ("="*current, " "*(max_num-current), rate_num, num, total)
         sys.stdout.write(r)
         sys.stdout.flush()
 

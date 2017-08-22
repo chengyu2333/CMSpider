@@ -1,5 +1,5 @@
-from cmspider import DB
-from cmspider import config
+from cmspider.database import DB
+from cmspider.config import config
 from pymongo import errors
 
 
@@ -28,6 +28,7 @@ class UrlManager:
         try:
             return self.con.insert(obj)
         except errors.DuplicateKeyError as dk:
+
             raise dk
         except Exception as e:
             raise e
@@ -40,7 +41,7 @@ class UrlManager:
             raise e
 
     # 获取url列表
-    def get_url(self, num, file_type="html"):
+    def get_url(self, num=10, file_type="html"):
         try:
             if file_type == "html":
                 res = self.con.find({"$or": [{"status": {"$exists": False}}, {"status": 0}], "type": "html"}).limit(num)

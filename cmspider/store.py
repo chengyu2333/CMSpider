@@ -1,10 +1,10 @@
 # 自定义存储方案
-from cmspider import Util
+from cmspider.util import Util
 from cmspider import exception
-from cmspider import config
-from cmspider import UrlManager
+from cmspider.config import config
+from cmspider.url_manager import UrlManager
 from pymongo import errors
-from cmspider import DB
+from cmspider.database import DB
 import json
 
 

@@ -1,4 +1,4 @@
-from cmspider import Fetch
+from cmspider.fetch import Fetch
 
 
 class FetchColumn(Fetch):

@@ -34,8 +34,7 @@ config = {
         "total_page": 10,  # 总页数,可动态修改
         "start_date": "",  # 开始日期
         "end_date": "",  # 结束日期
-        "max_replicate": 0,  # 连续重复多少次则停止抓取url，0为不限
-        "fetch_all": True,  # 是否抓取全部，False为增量更新数据，第一次运行时选择True
+        "max_replicate": 0,  # 连续重复多少次则停止抓取url，0为不限，
     },
     # 板块（API）抓取规则
     "column": {
@@ -132,3 +131,4 @@ config = {
         }
     }
 }
+# config = {}

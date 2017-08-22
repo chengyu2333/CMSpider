@@ -1,6 +1,6 @@
-import cmspider
-from cmspider import config
-from cmspider import Util
+from cmspider.config import config
+from cmspider.util import Util
+from cmspider.url_manager import UrlManager
 from urllib import request
 import requests
 import socket
@@ -8,7 +8,7 @@ import socket
 
 class Fetch:
     __headers = config['basic']['header']
-    __url_manager = cmspider.UrlManager()
+    __url_manager = UrlManager()
     socket.setdefaulttimeout(config['basic']['timeout'])
 
     def fetch_api(self, url, method="get", data=None, str_filter=None):

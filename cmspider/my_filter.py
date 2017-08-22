@@ -1,5 +1,5 @@
 import hashlib
-from cmspider import Util
+from cmspider.util import Util
 from bs4 import BeautifulSoup
 
 

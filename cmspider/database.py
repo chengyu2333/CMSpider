@@ -1,5 +1,5 @@
 from pymongo import MongoClient
-from cmspider import config
+from cmspider.config import config
 
 
 class DB:
