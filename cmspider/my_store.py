@@ -20,7 +20,7 @@ class MyStore(Store):
             file_url = "http://www.neeq.com.cn" + item['destFilePath']
             title = item['disclosureTitle']
             timestamp = item['upDate']['time']
-            # 到达最新数据
+            # 到达最新数据(弃用)
             # if config['basic']['max_replicate']:
             #     if timestamp <= self.url_manager.get_last_url("file")['timestamp']:
             #         raise exception.ListFinishedException
@@ -37,7 +37,6 @@ class MyStore(Store):
                         Util.COUNT_DUPLICATE = 0
                         raise exception.ExceedMaxDuplicate
                         # 超过最大连续重复次数，视为已抓取完最新数据
-
         Util.view_bar(Util.COUNT_PROCESSED, total_page)
         Util.COUNT_PROCESSED += 1
 
@@ -61,7 +60,6 @@ class MyStore(Store):
                     if Util.COUNT_DUPLICATE > config['list']['max_replicate']:
                         Util.COUNT_DUPLICATE = 0
                         raise exception.ExceedMaxDuplicate
-
         Util.view_bar(Util.COUNT_PROCESSED, total_page)
         Util.COUNT_PROCESSED += 1
 

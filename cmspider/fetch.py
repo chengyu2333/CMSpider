@@ -1,9 +1,10 @@
+import requests
+import socket
+import time
 from cmspider.config import config
 from cmspider.util import Util
 from cmspider.url_manager import UrlManager
 from urllib import request
-import requests
-import socket
 
 
 class Fetch:
@@ -22,6 +23,8 @@ class Fetch:
             return data
         except Exception as e:
             raise e
+        finally:
+            time.sleep(config['basic']['sleep'])
 
     def fetch_html(self, url):
         try:
@@ -32,6 +35,8 @@ class Fetch:
             return html
         except Exception as e:
             raise e
+        finally:
+            time.sleep(config['basic']['sleep'])
 
     def fetch_file(self, url, filename):
         # if not os.path.exists(filename):
@@ -47,3 +52,5 @@ class Fetch:
         except Exception as e:
             self.__url_manager.set_url_status(url, -1)
             raise e
+        finally:
+            time.sleep(config['basic']['sleep'])

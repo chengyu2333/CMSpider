@@ -39,7 +39,6 @@ class Spider:
         Util.COUNT_SUCCESS = 0
         Util.COUNT_DUPLICATE = 0
 
-
     # 爬取文件
     def fetch_file(self):
         print("开始下载文件")

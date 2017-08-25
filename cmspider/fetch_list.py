@@ -7,10 +7,7 @@ from cmspider.util import Util
 from pymongo import errors
 
 
-
-
 class FetchList(Fetch):
-    duplicate_count = 0
     __store = Store()
     __filter = Filter()
 
@@ -31,10 +28,6 @@ class FetchList(Fetch):
                 return res
             else:
                 raise Exception("列表抓取规则配置错误")
-            self.duplicate_count = 0
-        except errors.DuplicateKeyError as e:
-            self.duplicate_count += 1
-            print("\r重复url " + str(self.duplicate_count), end="")
         except exception.ExceedMaxDuplicate as f:
             raise f
 
@@ -85,6 +78,5 @@ class FetchList(Fetch):
                 except Exception:
                     raise
             else:
-                Util.COUNT_SUCCESS = 0
                 print('\n抓取全部URL完成,数量:', Util.COUNT_SUCCESS)
                 break

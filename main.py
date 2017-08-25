@@ -17,7 +17,8 @@ conf = {
     # 爬虫基础配置
     "basic": {
         "timeout": 5,  # 连接超时时间
-        "max_thread": 10,  # 最大线程
+        "sleep": 0,  # 爬取间隔时间
+        "max_thread": 1,  # 最大线程，建议单线程
         "header": {"User-Agent": "Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36(KHTML, like Gecko) "
                                  "Chrome/59.0.3071.86 Safari/537.36",
                    "cookie": "",
@@ -26,8 +27,6 @@ conf = {
         "start_page": 0,  # 起始页
         "max_page": 999,  # 最多爬取的页数
         "total_page": 2500,  # 总页数,建议动态修改
-
-        # "fetch_all": True,  # 是否抓取全部，False为增量更新数据，第一次运行时选择True
     },
     # 板块（API）抓取规则
     "column": {
