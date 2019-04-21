@@ -1,3 +1,8 @@
 *.jpg
 *.png
 *.pdf
+*.pyc
+venv/
+.idea/
+__pycache__/
+cmspider/__pycache__/
